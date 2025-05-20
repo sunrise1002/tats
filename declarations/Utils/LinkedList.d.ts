@@ -5,10 +5,10 @@ export declare class LinkedList {
     private _length;
     private _current;
     constructor();
-    get head(): any;
-    get tail(): any;
-    get current(): any;
-    get length(): any;
+    readonly head: any;
+    readonly tail: any;
+    readonly current: any;
+    readonly length: any;
     push(data: any): void;
     pop(): any;
     shift(): any;

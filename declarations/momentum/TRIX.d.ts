@@ -8,6 +8,6 @@ export declare class TRIX extends Indicator {
     generator: IterableIterator<number | undefined>;
     constructor(input: TRIXInput);
     static calculate: typeof trix;
-    nextValue(price: number): any;
+    nextValue(price: number): number;
 }
 export declare function trix(input: TRIXInput): number[];
