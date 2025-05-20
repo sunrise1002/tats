@@ -9,7 +9,7 @@ export default class AbandonedBaby extends CandlestickFinder {
         this.name = 'AbandonedBaby';
         this.requiredCount  = 3;
     }
-    logic (data:StockData) {
+    logic (data:StockData, needGap?: boolean) {
         let firstdaysOpen   = data.open[0];
         let firstdaysClose  = data.close[0];
         let firstdaysHigh   = data.high[0];
@@ -31,13 +31,12 @@ export default class AbandonedBaby extends CandlestickFinder {
                                     "low"  : [seconddaysLow]
                                 });
         let gapExists       = ((seconddaysHigh < firstdaysLow) && 
-                              (thirddaysLow > seconddaysHigh) && 
-                              (thirddaysClose > thirddaysOpen));
-        let isThirdBullish  = (thirddaysHigh< firstdaysOpen);                  
-        return (isFirstBearish && dojiExists && gapExists && isThirdBullish );
+                              (thirddaysLow > seconddaysHigh));
+        let isThirdBullish  = (thirddaysHigh < firstdaysOpen) && (thirddaysClose > thirddaysOpen);                  
+        return (isFirstBearish && dojiExists && isThirdBullish && (!needGap || gapExists) );
      }
 }
 
-export function abandonedbaby(data:StockData) {
-    return new AbandonedBaby().hasPattern(data);
+export function abandonedbaby(data:StockData, needGap?: boolean) {
+    return new AbandonedBaby().hasPattern(data, needGap);
 } 

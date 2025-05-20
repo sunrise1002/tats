@@ -6,7 +6,7 @@ export default class CandlestickFinder {
     approximateEqual(a: number, b: number): boolean;
     logic(data: StockData): boolean;
     getAllPatternIndex(data: StockData): number[];
-    hasPattern(data: StockData): any;
+    hasPattern(data: StockData, restParams?: any): any;
     protected _getLastDataForCandleStick(data: StockData): StockData;
     protected _generateDataForCandleStick(data: StockData): StockData[];
 }

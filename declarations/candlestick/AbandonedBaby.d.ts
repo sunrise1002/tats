@@ -2,6 +2,6 @@ import StockData from '../StockData';
 import CandlestickFinder from './CandlestickFinder';
 export default class AbandonedBaby extends CandlestickFinder {
     constructor();
-    logic(data: StockData): boolean;
+    logic(data: StockData, needGap?: boolean): boolean;
 }
-export declare function abandonedbaby(data: StockData): any;
+export declare function abandonedbaby(data: StockData, needGap?: boolean): any;

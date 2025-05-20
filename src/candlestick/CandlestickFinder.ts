@@ -36,7 +36,7 @@ export default class CandlestickFinder {
                         });
     }
 
-    hasPattern (data:StockData) {
+    hasPattern (data:StockData, restParams?: any) {
         if(data.close.length < this.requiredCount) {
             console.warn('Data count less than data required for the strategy ', this.name);
             return false;
@@ -48,7 +48,7 @@ export default class CandlestickFinder {
             data.close.reverse();
         }
         let strategyFn = this.logic;
-        return strategyFn.call(this, this._getLastDataForCandleStick(data));
+        return strategyFn.call(this, this._getLastDataForCandleStick(data), restParams);
     }
 
     protected _getLastDataForCandleStick(data:StockData) {

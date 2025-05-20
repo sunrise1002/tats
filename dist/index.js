@@ -2697,7 +2697,7 @@ class CandlestickFinder {
             return hasIndex;
         });
     }
-    hasPattern(data) {
+    hasPattern(data, restParams) {
         if (data.close.length < this.requiredCount) {
             console.warn('Data count less than data required for the strategy ', this.name);
             return false;
@@ -2709,7 +2709,7 @@ class CandlestickFinder {
             data.close.reverse();
         }
         let strategyFn = this.logic;
-        return strategyFn.call(this, this._getLastDataForCandleStick(data));
+        return strategyFn.call(this, this._getLastDataForCandleStick(data), restParams);
     }
     _getLastDataForCandleStick(data) {
         let requiredCount = this.requiredCount;
@@ -3677,7 +3677,7 @@ class AbandonedBaby extends CandlestickFinder {
         this.name = 'AbandonedBaby';
         this.requiredCount = 3;
     }
-    logic(data) {
+    logic(data, needGap) {
         let firstdaysOpen = data.open[0];
         let firstdaysClose = data.close[0];
         let firstdaysHigh = data.high[0];
@@ -3698,14 +3698,13 @@ class AbandonedBaby extends CandlestickFinder {
             "low": [seconddaysLow]
         });
         let gapExists = ((seconddaysHigh < firstdaysLow) &&
-            (thirddaysLow > seconddaysHigh) &&
-            (thirddaysClose > thirddaysOpen));
-        let isThirdBullish = (thirddaysHigh < firstdaysOpen);
-        return (isFirstBearish && dojiExists && gapExists && isThirdBullish);
+            (thirddaysLow > seconddaysHigh));
+        let isThirdBullish = (thirddaysHigh < firstdaysOpen) && (thirddaysClose > thirddaysOpen);
+        return (isFirstBearish && dojiExists && isThirdBullish && (!needGap || gapExists));
     }
 }
-function abandonedbaby(data) {
-    return new AbandonedBaby().hasPattern(data);
+function abandonedbaby(data, needGap) {
+    return new AbandonedBaby().hasPattern(data, needGap);
 }
 
 class DarkCloudCover extends CandlestickFinder {
