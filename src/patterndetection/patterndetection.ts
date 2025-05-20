@@ -83,7 +83,7 @@ async function loadModel() {
                 modelLoaded = false;
                 laodingModel = false;
                 console.log('Tensorflow js not imported, pattern detection may not work');
-                resolve();
+                resolve(void 0);
                 return;
             }
             tf = (window as any).tf;
@@ -98,7 +98,7 @@ async function loadModel() {
         }
         modelLoaded = true;
         laodingModel = false;
-        resolve();
+        resolve(void 0);
         return;
     });
     await loadingPromise;
