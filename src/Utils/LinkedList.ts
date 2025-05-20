@@ -64,6 +64,8 @@ export class LinkedList {
             this._current = this._tail
             this._next = undefined
         }
+        // Fix: Clear reference to prevent memory leak
+        tail.prev = undefined;
         return tail.data
     }
 
@@ -82,6 +84,8 @@ export class LinkedList {
             this._current = this._head
             this._next = this._current.next
         }
+        // Fix: Clear reference to prevent memory leak
+        head.next = undefined;
         return head.data
     }
 
@@ -110,6 +114,9 @@ export class LinkedList {
             this._current = current.prev
         }
         this._next = this._current.next
+        // Clear old references before reusing the node
+        const oldPrev = current.prev;
+        current.prev = undefined;
         // unshift
         current.next = this._head
         current.prev = undefined
@@ -142,6 +149,9 @@ export class LinkedList {
             this._current = current.prev
         }
         this._next = this._current.next
+        // Fix: Clear references to prevent memory leak
+        current.next = undefined;
+        current.prev = undefined;
         return current.data
     }
 

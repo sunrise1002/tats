@@ -15,7 +15,7 @@ export default class FixedSizeLinkedList extends LinkedList {
     _push: (data: number) => void;
     constructor(size: number, maintainHigh?: boolean, maintainLow?: boolean, maintainSum?: boolean);
     add(data: number): void;
-    iterator(): IterableIterator<any>;
+    iterator(): IterableIterator<any, void, unknown>;
     calculatePeriodHigh(): void;
     calculatePeriodLow(): void;
 }
