@@ -1,6 +1,6 @@
 {
   "name": "@sunrise1002/tats",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Techincal Indicators written in javascript",
   "main": "dist/index.js",
   "module": "lib/index.js",
