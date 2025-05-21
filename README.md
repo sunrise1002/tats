@@ -1,4 +1,4 @@
-[![Travis CI](https://img.shields.io/travis/anandanand84/technicalindicators.svg?style=flat-square)](https://travis-ci.org/anandanand84/technicalindicators)
+[![Travis CI](https://img.shields.io/travis/sunrise1002/tats.svg?style=flat-square)](https://travis-ci.org/sunrise1002/tats)
 
 # TechnicalIndicators
 
@@ -10,11 +10,11 @@ A javascript technical indicators written in typescript.
 ## Node.js versions >= 10
 
 ``` bash
-npm install --save technicalindicators
+npm install --save tats
 ```
 
 ``` javascript
-const SMA = require('technicalindicators').SMA;
+const SMA = require('tats').SMA;
 ```
 
 ## Node.js versions < 10
@@ -41,23 +41,23 @@ For browsers install using npm,
 For ES6 browsers use
 
 ``` bash
-npm install --save technicalindicators
+npm install --save tats
 ```
 
 ```html
-<script src="node_modules/technicalindicators/dist/browser.es6.js"></script>
+<script src="node_modules/tats/dist/browser.es6.js"></script>
 ```
 
-For ES5 support it is necessary to include the babel-polyfill and respective file browser.js otherwise you will get an error. For example see [index.html](https://github.com/anandanand84/technicalindicators/blob/master/index.html "index.html")
+For ES5 support it is necessary to include the babel-polyfill and respective file browser.js otherwise you will get an error. For example see [index.html](https://github.com/sunrise1002/tats/blob/master/index.html "index.html")
 
 ``` bash
-npm install --save technicalindicators
+npm install --save tats
 npm install --save babel-polyfill
 ```
 
 ``` html
 <script src="node_modules/babel-polyfill/browser.js"></script>
-<script src="node_modules/technicalindicators/dist/browser.js"></script>
+<script src="node_modules/tats/dist/browser.js"></script>
 ```
 
 ### Pattern detection
@@ -78,11 +78,11 @@ SMA.calculate({period : 5, values : [1,2,3,4,5,6,7,8,9]});
 
 # Playground
 
-[Playground with code completion](http://anandanand84.github.io/technicalindicators/ "Playground")
+[Playground with code completion](http://anandanand84.github.io/tats/ "Playground")
 
 # Crypto Trading hub
 
-If you like this project. You'll love my other project [crypto trading hub](https://cryptotrading-hub.com/?utm_source=github&utm_medium=readme&utm_campaign=technicalindicators "Crypto trading hub")
+If you like this project. You'll love my other project [crypto trading hub](https://cryptotrading-hub.com/?utm_source=github&utm_medium=readme&utm_campaign=tats "Crypto trading hub")
 
 1. Its free
 1. Realtime price charts 
@@ -99,49 +99,49 @@ If you like this project. You'll love my other project [crypto trading hub](http
 # Available Indicators
 
 1. [Accumulation Distribution Line (ADL)](https://tonicdev.com/anandaravindan/adl "ADL").
-1. [Average Directional Index (ADX)](https://github.com/anandanand84/technicalindicators/blob/master/test/directionalmovement/ADX.js "ADX").
+1. [Average Directional Index (ADX)](https://github.com/sunrise1002/tats/blob/master/test/directionalmovement/ADX.js "ADX").
 1. [Average True Range (ATR)](https://tonicdev.com/anandaravindan/atr "ATR").
-1. [Awesome Oscillator (AO)](https://github.com/anandanand84/technicalindicators/blob/master/test/oscillators/AwesomeOscillator.js "AO").
+1. [Awesome Oscillator (AO)](https://github.com/sunrise1002/tats/blob/master/test/oscillators/AwesomeOscillator.js "AO").
 1. [Bollinger Bands (BB)](https://tonicdev.com/anandaravindan/bb "BB").
-1. [Commodity Channel Index (CCI)](https://github.com/anandanand84/technicalindicators/blob/master/test/oscillators/CCI.js "CCI").
-1. [Force Index (FI)](https://github.com/anandanand84/technicalindicators/blob/master/test/volume/ForceIndex.js "FI").
+1. [Commodity Channel Index (CCI)](https://github.com/sunrise1002/tats/blob/master/test/oscillators/CCI.js "CCI").
+1. [Force Index (FI)](https://github.com/sunrise1002/tats/blob/master/test/volume/ForceIndex.js "FI").
 1. [Know Sure Thing (KST)](https://tonicdev.com/anandaravindan/kst "KST").
-1. [Moneyflow Index (MFI)](https://github.com/anandanand84/technicalindicators/blob/master/test/volume/MFI.js "MFI").
+1. [Moneyflow Index (MFI)](https://github.com/sunrise1002/tats/blob/master/test/volume/MFI.js "MFI").
 1. [Moving Average Convergence Divergence (MACD)](https://tonicdev.com/anandaravindan/macd "MACD").
 1. [On Balance Volume (OBV)](https://tonicdev.com/anandaravindan/obv "OBV").
-1. [Parabolic Stop and Reverse (PSAR)](https://github.com/anandanand84/technicalindicators/blob/master/test/momentum/PSAR.js "PSAR").
+1. [Parabolic Stop and Reverse (PSAR)](https://github.com/sunrise1002/tats/blob/master/test/momentum/PSAR.js "PSAR").
 1. [Rate of Change (ROC)](https://tonicdev.com/anandaravindan/roc "ROC").
 1. [Relative Strength Index (RSI)](https://tonicdev.com/anandaravindan/rsi "RSI").
 1. [Simple Moving Average (SMA)](https://tonicdev.com/anandaravindan/sma "SMA").
 1. [Stochastic Oscillator (KD)](https://tonicdev.com/anandaravindan/stochastic "KD").
 1. [Stochastic RSI (StochRSI)](https://tonicdev.com/anandaravindan/stochasticrsi "StochRSI").
 1. [Triple Exponentially Smoothed Average (TRIX)](https://tonicdev.com/anandaravindan/trix "TRIX").
-1. [Typical Price](https://github.com/anandanand84/technicalindicators/blob/master/test/chart_types/TypicalPrice.js "Typical Price").
-1. [Volume Weighted Average Price (VWAP)](https://github.com/anandanand84/technicalindicators/blob/master/test/volume/VWAP.js "VWAP").
-1. [Volume Profile (VP)](https://github.com/anandanand84/technicalindicators/blob/master/test/volume/VolumeProfile.js "VP").
+1. [Typical Price](https://github.com/sunrise1002/tats/blob/master/test/chart_types/TypicalPrice.js "Typical Price").
+1. [Volume Weighted Average Price (VWAP)](https://github.com/sunrise1002/tats/blob/master/test/volume/VWAP.js "VWAP").
+1. [Volume Profile (VP)](https://github.com/sunrise1002/tats/blob/master/test/volume/VolumeProfile.js "VP").
 1. [Exponential Moving Average (EMA)](https://tonicdev.com/anandaravindan/ema "EMA").
 1. [Weighted Moving Average (WMA)](https://tonicdev.com/anandaravindan/wma "WMA").
 1. [Wilder’s Smoothing (Smoothed Moving Average, WEMA)](https://tonicdev.com/anandaravindan/wema "WEMA").
 1. [WilliamsR (W%R)](https://tonicdev.com/anandaravindan/williamsr "W%R").
-1. [Ichimoku Cloud](https://github.com/anandanand84/technicalindicators/blob/master/test/ichimoku/IchimokuCloud.js "Ichimoku Cloud").
+1. [Ichimoku Cloud](https://github.com/sunrise1002/tats/blob/master/test/ichimoku/IchimokuCloud.js "Ichimoku Cloud").
 
 # Other Utils
 
-1. [Average Gain](https://github.com/anandanand84/technicalindicators/blob/master/test/Utils/AverageGain.js "")
-1. [Average Loss](https://github.com/anandanand84/technicalindicators/blob/master/test/Utils/AverageLoss.js "")
-1. [Cross Up](https://github.com/anandanand84/technicalindicators/blob/master/test/Utils/CrossUp.js "")
-1. [Cross Down](https://github.com/anandanand84/technicalindicators/blob/master/test/Utils/CrossDown.js "")
-1. [Cross Over](https://github.com/anandanand84/technicalindicators/blob/master/test/Utils/CrossOver.js "")
-1. [Highest](https://github.com/anandanand84/technicalindicators/blob/master/test/Utils/Highest.js "")
-1. [Lowest](https://github.com/anandanand84/technicalindicators/blob/master/test/Utils/Lowest.js "")
-1. [Standard Deviation](https://github.com/anandanand84/technicalindicators/blob/master/test/Utils/SD.js "")
-1. [Sum](https://github.com/anandanand84/technicalindicators/blob/master/test/Utils/Sum.js "")
+1. [Average Gain](https://github.com/sunrise1002/tats/blob/master/test/Utils/AverageGain.js "")
+1. [Average Loss](https://github.com/sunrise1002/tats/blob/master/test/Utils/AverageLoss.js "")
+1. [Cross Up](https://github.com/sunrise1002/tats/blob/master/test/Utils/CrossUp.js "")
+1. [Cross Down](https://github.com/sunrise1002/tats/blob/master/test/Utils/CrossDown.js "")
+1. [Cross Over](https://github.com/sunrise1002/tats/blob/master/test/Utils/CrossOver.js "")
+1. [Highest](https://github.com/sunrise1002/tats/blob/master/test/Utils/Highest.js "")
+1. [Lowest](https://github.com/sunrise1002/tats/blob/master/test/Utils/Lowest.js "")
+1. [Standard Deviation](https://github.com/sunrise1002/tats/blob/master/test/Utils/SD.js "")
+1. [Sum](https://github.com/sunrise1002/tats/blob/master/test/Utils/Sum.js "")
 
 
 # Chart Types
 
-1. [Renko (renko)](https://github.com/anandanand84/technicalindicators/blob/master/test/chart_types/Renko.js)
-1. [Heikin-Ashi (HA)](https://github.com/anandanand84/technicalindicators/blob/master/test/chart_types/HeikinAshi.js)
+1. [Renko (renko)](https://github.com/sunrise1002/tats/blob/master/test/chart_types/Renko.js)
+1. [Heikin-Ashi (HA)](https://github.com/sunrise1002/tats/blob/master/test/chart_types/HeikinAshi.js)
 
 
 # CandleStick Pattern
@@ -195,7 +195,7 @@ var twoDayBullishInput = {
   low: [20.82,14.93],
 }
 
-var bullish = require('technicalindicators').bullish;
+var bullish = require('tats').bullish;
 
 bullish(twoDayBullishInput) //true
 ```
@@ -210,7 +210,7 @@ There are three ways you can use to get the indicator results.
 Every indicator has a static method `calculate` which can be used to calculate the indicator without creating an object.
 
 ``` javascript
-const sma = require('technicalindicators').sma;
+const sma = require('tats').sma;
 var prices = [1,2,3,4,5,6,7,8,9,10,12,13,15];
 var period = 10;
 sma({period : period, values : prices})
@@ -219,7 +219,7 @@ sma({period : period, values : prices})
 or
 
 ``` javascript
-const SMA = require('technicalindicators').SMA;
+const SMA = require('tats').SMA;
 var prices = [1,2,3,4,5,6,7,8,9,10,12,13,15];
 var period = 10;
 SMA.calculate({period : period, values : prices})
@@ -262,7 +262,7 @@ This a merge of calculate and nextValue. The usual use case would be
 This uses regular javascript numbers, so there can be rounding errors which are negligible for a technical indicators, you can set precision by using the below config. By default there is no precision set.
 
   ``` javascript
-  const technicalIndicators = require('technicalindicators');
+  const technicalIndicators = require('tats');
   technicalIndicators.setConfig('precision', 10);
   ```
 
@@ -280,7 +280,7 @@ Typescript: Use typescript 2.0.0 other you might get max call stack reached erro
 TechnicalIndicators depends on the [`canvas` package](https://npmjs.com/canvas), which requires some dependencies to be installed. You can find the instructions to do that [here](https://github.com/Automattic/node-canvas#installation). If you do not install these dependencies, expect to get this error message during the installation of TechnicalIndicators:
 
 ```
-> canvas@1.6.6 install /Users/balupton/Projects/trading/technicalindicators/node_modules/canvas
+> canvas@1.6.6 install /Users/balupton/Projects/trading/tats/node_modules/canvas
 > node-gyp rebuild
 
 ./util/has_lib.sh: line 31: pkg-config: command not found
@@ -290,8 +290,8 @@ gyp: Call to './util/has_lib.sh freetype' returned exit status 0 while in bindin
 ## Setup
 
 ``` bash
-git clone git@github.com:anandanand84/technicalindicators.git  # or use your fork
-cd technicalindicators
+git clone git@github.com:sunrise1002/tats.git  # or use your fork
+cd tats
 npm run start
 ```
 

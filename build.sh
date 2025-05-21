@@ -5,5 +5,5 @@ docker run -it \
 -v $(pwd)/dist:/src/dist \
 -v $(pwd)/lib:/src/lib \
 -v $(pwd)/declarations:/src/declarations \
-anandanand84/technicalindicators \
+sunrise1002/tats \
 npm -- run build-lib
