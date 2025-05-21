@@ -1,5 +1,5 @@
 {
-  "name": "tats",
+  "name": "@sunrise1002/tats",
   "version": "1.0.0",
   "description": "Techincal Indicators written in javascript",
   "main": "dist/index.js",
