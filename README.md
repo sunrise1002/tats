@@ -10,11 +10,11 @@ A javascript technical indicators written in typescript.
 ## Node.js versions >= 10
 
 ``` bash
-npm install --save tats
+npm install --save @sunrise1002/tats
 ```
 
 ``` javascript
-const SMA = require('tats').SMA;
+const SMA = require('@sunrise1002/tats').SMA;
 ```
 
 ## Node.js versions < 10
@@ -41,23 +41,23 @@ For browsers install using npm,
 For ES6 browsers use
 
 ``` bash
-npm install --save tats
+npm install --save @sunrise1002/tats
 ```
 
 ```html
-<script src="node_modules/tats/dist/browser.es6.js"></script>
+<script src="node_modules/@sunrise1002/tats/dist/browser.es6.js"></script>
 ```
 
 For ES5 support it is necessary to include the babel-polyfill and respective file browser.js otherwise you will get an error. For example see [index.html](https://github.com/sunrise1002/tats/blob/master/index.html "index.html")
 
 ``` bash
-npm install --save tats
+npm install --save @sunrise1002/tats
 npm install --save babel-polyfill
 ```
 
 ``` html
 <script src="node_modules/babel-polyfill/browser.js"></script>
-<script src="node_modules/tats/dist/browser.js"></script>
+<script src="node_modules/@sunrise1002/tats/dist/browser.js"></script>
 ```
 
 ### Pattern detection
@@ -78,7 +78,6 @@ SMA.calculate({period : 5, values : [1,2,3,4,5,6,7,8,9]});
 
 # Playground
 
-[Playground with code completion](http://anandanand84.github.io/tats/ "Playground")
 
 # Crypto Trading hub
 
@@ -195,7 +194,7 @@ var twoDayBullishInput = {
   low: [20.82,14.93],
 }
 
-var bullish = require('tats').bullish;
+var bullish = require('@sunrise1002/tats').bullish;
 
 bullish(twoDayBullishInput) //true
 ```
@@ -210,7 +209,7 @@ There are three ways you can use to get the indicator results.
 Every indicator has a static method `calculate` which can be used to calculate the indicator without creating an object.
 
 ``` javascript
-const sma = require('tats').sma;
+const sma = require('@sunrise1002/tats').sma;
 var prices = [1,2,3,4,5,6,7,8,9,10,12,13,15];
 var period = 10;
 sma({period : period, values : prices})
@@ -219,7 +218,7 @@ sma({period : period, values : prices})
 or
 
 ``` javascript
-const SMA = require('tats').SMA;
+const SMA = require('@sunrise1002/tats').SMA;
 var prices = [1,2,3,4,5,6,7,8,9,10,12,13,15];
 var period = 10;
 SMA.calculate({period : period, values : prices})
@@ -262,7 +261,7 @@ This a merge of calculate and nextValue. The usual use case would be
 This uses regular javascript numbers, so there can be rounding errors which are negligible for a technical indicators, you can set precision by using the below config. By default there is no precision set.
 
   ``` javascript
-  const technicalIndicators = require('tats');
+  const technicalIndicators = require('@sunrise1002/tats');
   technicalIndicators.setConfig('precision', 10);
   ```
 
@@ -319,11 +318,3 @@ npm run cover
 node testdocs.js
 open "http://localhost:5444/testdocs.html"
 ```
-
-
-# Donate
-1. XRB: `xrb_1shh8i77upiq4bjzi3ajik9ofq14bbcucshoapi3m7f8d74dc5k31o56yj5r`
-1. ETH: `0x0B56580Eb25f3F7e366dDA697161d314C17Bcb6a`
-1. LTC: `LLTUhKBRKs9sbW9F8MFQm7VVdZ1dJnXzGc`
-1. BTC: `1FGeJHoj7tjeLrm4JNtyPWTdBKPJjcqP6Y`
-1. BCH: `1AUFc8CEfHVjnoixbqTbX62WV8DZkpC1DU`
