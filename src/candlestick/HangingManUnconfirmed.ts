@@ -10,6 +10,7 @@ export default class HangingManUnconfirmed extends HangingMan {
     logic (data:StockData) {
         let isPattern = this.upwardTrend(data, false);
         isPattern = isPattern && this.includesHammer(data, false);
+        isPattern = isPattern && this.hammerShouldHasHighestOpenOrClose(data); // Hammer candlestick should has highest open or close price compare to previous candlesticks
         return isPattern;
     }
 }

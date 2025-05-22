@@ -3491,6 +3491,7 @@ class HangingMan extends CandlestickFinder {
         let isPattern = this.upwardTrend(data);
         isPattern = isPattern && this.includesHammer(data);
         isPattern = isPattern && this.hasConfirmation(data);
+        isPattern = isPattern && this.hammerShouldHasHighestOpenOrClose(data); // Hammer candlestick should has highest open or close price compare to previous candlesticks
         return isPattern;
     }
     upwardTrend(data, confirm = true) {
@@ -3513,6 +3514,14 @@ class HangingMan extends CandlestickFinder {
         let isPattern = bearishhammerstick(possibleHammerData);
         isPattern = isPattern || bullishhammerstick(possibleHammerData);
         return isPattern;
+    }
+    hammerShouldHasHighestOpenOrClose(data) {
+        const dataLength = data.open.length;
+        const openPrices = data.open.slice(0, dataLength - 1); // Except the last candlestick
+        const closePrices = data.close.slice(0, dataLength - 1); // Except the last candlestick
+        const hammerOpenPrice = openPrices[openPrices.length - 1];
+        const hammerClosePrice = closePrices[closePrices.length - 1];
+        return [hammerOpenPrice, hammerClosePrice].includes(Math.max(...openPrices, ...closePrices));
     }
     hasConfirmation(data) {
         let possibleHammer = {
@@ -3544,6 +3553,7 @@ class HangingManUnconfirmed extends HangingMan {
     logic(data) {
         let isPattern = this.upwardTrend(data, false);
         isPattern = isPattern && this.includesHammer(data, false);
+        isPattern = isPattern && this.hammerShouldHasHighestOpenOrClose(data); // Hammer candlestick should has highest open or close price compare to previous candlesticks
         return isPattern;
     }
 }
