@@ -3070,6 +3070,7 @@ class BullishHammerStick extends CandlestickFinder {
         let isBullishHammer = daysClose > daysOpen;
         isBullishHammer = isBullishHammer && this.approximateEqual(daysClose, daysHigh);
         isBullishHammer = isBullishHammer && (daysClose - daysOpen) * 2 <= (daysOpen - daysLow);
+        isBullishHammer = isBullishHammer && (daysHigh - daysClose) * 3 < (daysOpen - daysLow);
         return isBullishHammer;
     }
 }
@@ -3112,6 +3113,7 @@ class BearishHammerStick extends CandlestickFinder {
         let isBearishHammer = daysOpen > daysClose;
         isBearishHammer = isBearishHammer && this.approximateEqual(daysOpen, daysHigh);
         isBearishHammer = isBearishHammer && (daysOpen - daysClose) * 2 <= (daysClose - daysLow);
+        isBearishHammer = isBearishHammer && (daysHigh - daysOpen) * 3 < (daysClose - daysLow);
         return isBearishHammer;
     }
 }
