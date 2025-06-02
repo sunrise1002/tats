@@ -6,7 +6,7 @@ export default class BearishHarami extends CandlestickFinder {
         this.requiredCount  = 2;
         this.name = 'BearishHarami';
     }
-    logic (data:StockData) {
+    logic (data:StockData, needGap?: boolean) {
         let firstdaysOpen   = data.open[0];
         let firstdaysClose  = data.close[0];
         let firstdaysHigh   = data.high[0];
@@ -16,17 +16,17 @@ export default class BearishHarami extends CandlestickFinder {
         let seconddaysHigh  = data.high[1];
         let seconddaysLow   = data.low[1]
 
-		let isBearishHaramiPattern = ((firstdaysOpen < seconddaysOpen) && 
-		(firstdaysClose > seconddaysOpen)&&
-		(firstdaysClose > seconddaysClose)&& 
-		(firstdaysOpen  < seconddaysLow)&&
-                               (firstdaysHigh  > seconddaysHigh)); 
+		let isBearishHaramiPattern = (firstdaysOpen < seconddaysOpen) &&
+            (firstdaysClose > seconddaysClose) &&
+            (firstdaysOpen < seconddaysLow) &&
+            (firstdaysHigh  > seconddaysHigh) &&
+            (!needGap || (firstdaysClose > seconddaysOpen));
    
         return (isBearishHaramiPattern);
         
    }
 }
 
-export function bearishharami(data:StockData) {
-    return new BearishHarami().hasPattern(data);
+export function bearishharami(data:StockData, needGap?: boolean) {
+    return new BearishHarami().hasPattern(data, needGap);
 }

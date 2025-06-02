@@ -2826,7 +2826,7 @@ class BullishHarami extends CandlestickFinder {
         this.requiredCount = 2;
         this.name = "BullishHarami";
     }
-    logic(data) {
+    logic(data, needGap) {
         let firstdaysOpen = data.open[0];
         let firstdaysClose = data.close[0];
         let firstdaysHigh = data.high[0];
@@ -2835,16 +2835,16 @@ class BullishHarami extends CandlestickFinder {
         let seconddaysClose = data.close[1];
         let seconddaysHigh = data.high[1];
         let seconddaysLow = data.low[1];
-        let isBullishHaramiPattern = ((firstdaysOpen > seconddaysOpen) &&
-            (firstdaysClose < seconddaysOpen) &&
+        let isBullishHaramiPattern = (firstdaysOpen > seconddaysOpen) &&
             (firstdaysClose < seconddaysClose) &&
-            (firstdaysOpen > seconddaysLow) &&
-            (firstdaysHigh > seconddaysHigh));
+            (firstdaysOpen > seconddaysHigh) &&
+            (firstdaysLow < seconddaysLow) &&
+            (!needGap || (firstdaysClose < seconddaysOpen));
         return (isBullishHaramiPattern);
     }
 }
-function bullishharami(data) {
-    return new BullishHarami().hasPattern(data);
+function bullishharami(data, needGap) {
+    return new BullishHarami().hasPattern(data, needGap);
 }
 
 class BullishHaramiCross extends CandlestickFinder {
@@ -2853,7 +2853,7 @@ class BullishHaramiCross extends CandlestickFinder {
         this.requiredCount = 2;
         this.name = 'BullishHaramiCross';
     }
-    logic(data) {
+    logic(data, needGap) {
         let firstdaysOpen = data.open[0];
         let firstdaysClose = data.close[0];
         let firstdaysHigh = data.high[0];
@@ -2862,17 +2862,18 @@ class BullishHaramiCross extends CandlestickFinder {
         let seconddaysClose = data.close[1];
         let seconddaysHigh = data.high[1];
         let seconddaysLow = data.low[1];
-        let isBullishHaramiCrossPattern = ((firstdaysOpen > seconddaysOpen) &&
-            (firstdaysClose < seconddaysOpen) &&
+        let isBullishHaramiPattern = (firstdaysOpen > seconddaysOpen) &&
             (firstdaysClose < seconddaysClose) &&
-            (firstdaysOpen > seconddaysLow) &&
-            (firstdaysHigh > seconddaysHigh));
+            (firstdaysOpen > seconddaysHigh) &&
+            (firstdaysLow < seconddaysLow) &&
+            (!needGap || (firstdaysClose < seconddaysOpen));
         let isSecondDayDoji = this.approximateEqual(seconddaysOpen, seconddaysClose);
+        const isBullishHaramiCrossPattern = isBullishHaramiPattern && isSecondDayDoji;
         return (isBullishHaramiCrossPattern && isSecondDayDoji);
     }
 }
-function bullishharamicross(data) {
-    return new BullishHaramiCross().hasPattern(data);
+function bullishharamicross(data, needGap) {
+    return new BullishHaramiCross().hasPattern(data, needGap);
 }
 
 class Doji extends CandlestickFinder {
@@ -3299,7 +3300,7 @@ class BearishHarami extends CandlestickFinder {
         this.requiredCount = 2;
         this.name = 'BearishHarami';
     }
-    logic(data) {
+    logic(data, needGap) {
         let firstdaysOpen = data.open[0];
         let firstdaysClose = data.close[0];
         let firstdaysHigh = data.high[0];
@@ -3308,16 +3309,16 @@ class BearishHarami extends CandlestickFinder {
         let seconddaysClose = data.close[1];
         let seconddaysHigh = data.high[1];
         let seconddaysLow = data.low[1];
-        let isBearishHaramiPattern = ((firstdaysOpen < seconddaysOpen) &&
-            (firstdaysClose > seconddaysOpen) &&
+        let isBearishHaramiPattern = (firstdaysOpen < seconddaysOpen) &&
             (firstdaysClose > seconddaysClose) &&
             (firstdaysOpen < seconddaysLow) &&
-            (firstdaysHigh > seconddaysHigh));
+            (firstdaysHigh > seconddaysHigh) &&
+            (!needGap || (firstdaysClose > seconddaysOpen));
         return (isBearishHaramiPattern);
     }
 }
-function bearishharami(data) {
-    return new BearishHarami().hasPattern(data);
+function bearishharami(data, needGap) {
+    return new BearishHarami().hasPattern(data, needGap);
 }
 
 class BearishHaramiCross extends CandlestickFinder {
@@ -3326,7 +3327,7 @@ class BearishHaramiCross extends CandlestickFinder {
         this.requiredCount = 2;
         this.name = 'BearishHaramiCross';
     }
-    logic(data) {
+    logic(data, needGap) {
         let firstdaysOpen = data.open[0];
         let firstdaysClose = data.close[0];
         let firstdaysHigh = data.high[0];
@@ -3335,17 +3336,18 @@ class BearishHaramiCross extends CandlestickFinder {
         let seconddaysClose = data.close[1];
         let seconddaysHigh = data.high[1];
         let seconddaysLow = data.low[1];
-        let isBearishHaramiCrossPattern = ((firstdaysOpen < seconddaysOpen) &&
-            (firstdaysClose > seconddaysOpen) &&
+        let isBearishHaramiPattern = (firstdaysOpen < seconddaysOpen) &&
             (firstdaysClose > seconddaysClose) &&
             (firstdaysOpen < seconddaysLow) &&
-            (firstdaysHigh > seconddaysHigh));
+            (firstdaysHigh > seconddaysHigh) &&
+            (!needGap || (firstdaysClose > seconddaysOpen));
         let isSecondDayDoji = this.approximateEqual(seconddaysOpen, seconddaysClose);
+        const isBearishHaramiCrossPattern = isBearishHaramiPattern && isSecondDayDoji;
         return (isBearishHaramiCrossPattern && isSecondDayDoji);
     }
 }
-function bearishharamicross(data) {
-    return new BearishHaramiCross().hasPattern(data);
+function bearishharamicross(data, needGap) {
+    return new BearishHaramiCross().hasPattern(data, needGap);
 }
 
 class EveningDojiStar extends CandlestickFinder {
