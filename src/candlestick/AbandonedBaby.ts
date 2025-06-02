@@ -23,16 +23,24 @@ export default class AbandonedBaby extends CandlestickFinder {
         let thirddaysHigh   = data.high[2];
         let thirddaysLow    = data.low[2];
          
-        let isFirstBearish  = firstdaysClose<firstdaysOpen;
+        let isFirstBearish  = firstdaysClose < firstdaysOpen &&
+        (firstdaysOpen - firstdaysClose > 3 * Math.abs(seconddaysOpen - seconddaysClose));
+
         let dojiExists      =  new Doji().hasPattern({
                                     "open" : [seconddaysOpen],
                                     "close": [seconddaysClose],
                                     "high" : [seconddaysHigh],
                                     "low"  : [seconddaysLow]
                                 });
+
         let gapExists       = ((seconddaysHigh < firstdaysLow) && 
                               (thirddaysLow > seconddaysHigh));
-        let isThirdBullish  = (thirddaysHigh < firstdaysOpen) && (thirddaysClose > thirddaysOpen);                  
+
+        let isThirdBullish  = (thirddaysClose > thirddaysOpen) &&
+        (thirddaysClose - thirddaysOpen > 3 * Math.abs(seconddaysOpen - seconddaysClose)) &&
+        (thirddaysClose > seconddaysOpen) &&
+        (thirddaysClose > seconddaysClose);
+
         return (isFirstBearish && dojiExists && isThirdBullish && (!needGap || gapExists) );
      }
 }
