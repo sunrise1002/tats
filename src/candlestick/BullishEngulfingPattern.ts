@@ -7,7 +7,7 @@ export default class BullishEngulfingPattern extends CandlestickFinder {
         this.name = 'BullishEngulfingPattern';
         this.requiredCount  = 2;
     }
-    logic (data:StockData) {
+    logic (data:StockData, needGap?: boolean) {
         let firstdaysOpen   = data.open[0];
         let firstdaysClose  = data.close[0];
         let firstdaysHigh   = data.high[0];
@@ -17,16 +17,16 @@ export default class BullishEngulfingPattern extends CandlestickFinder {
         let seconddaysHigh  = data.high[1];
         let seconddaysLow   = data.low[1]
         
-        let isBullishEngulfing     = ((firstdaysClose < firstdaysOpen) && 
-                                        (firstdaysOpen > seconddaysOpen) &&
-                                        (firstdaysClose > seconddaysOpen) &&
-                                        (firstdaysOpen < seconddaysClose));
+        let isBullishEngulfing =
+        (firstdaysClose < firstdaysOpen) && 
+        (firstdaysOpen < seconddaysClose) &&
+        (!needGap || ((firstdaysOpen > seconddaysOpen) && (firstdaysClose > seconddaysOpen)));
                     
         return (isBullishEngulfing );
         
    }
 }
 
-export function bullishengulfingpattern(data:StockData) {
-  return new BullishEngulfingPattern().hasPattern(data);
+export function bullishengulfingpattern(data:StockData, needGap?: boolean) {
+  return new BullishEngulfingPattern().hasPattern(data, needGap);
 }

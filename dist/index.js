@@ -2800,7 +2800,7 @@ class BullishEngulfingPattern extends CandlestickFinder {
         this.name = 'BullishEngulfingPattern';
         this.requiredCount = 2;
     }
-    logic(data) {
+    logic(data, needGap) {
         let firstdaysOpen = data.open[0];
         let firstdaysClose = data.close[0];
         let firstdaysHigh = data.high[0];
@@ -2809,15 +2809,14 @@ class BullishEngulfingPattern extends CandlestickFinder {
         let seconddaysClose = data.close[1];
         let seconddaysHigh = data.high[1];
         let seconddaysLow = data.low[1];
-        let isBullishEngulfing = ((firstdaysClose < firstdaysOpen) &&
-            (firstdaysOpen > seconddaysOpen) &&
-            (firstdaysClose > seconddaysOpen) &&
-            (firstdaysOpen < seconddaysClose));
+        let isBullishEngulfing = (firstdaysClose < firstdaysOpen) &&
+            (firstdaysOpen < seconddaysClose) &&
+            (!needGap || ((firstdaysOpen > seconddaysOpen) && (firstdaysClose > seconddaysOpen)));
         return (isBullishEngulfing);
     }
 }
-function bullishengulfingpattern(data) {
-    return new BullishEngulfingPattern().hasPattern(data);
+function bullishengulfingpattern(data, needGap) {
+    return new BullishEngulfingPattern().hasPattern(data, needGap);
 }
 
 class BullishHarami extends CandlestickFinder {
@@ -3274,7 +3273,7 @@ class BearishEngulfingPattern extends CandlestickFinder {
         this.name = 'BearishEngulfingPattern';
         this.requiredCount = 2;
     }
-    logic(data) {
+    logic(data, needGap) {
         let firstdaysOpen = data.open[0];
         let firstdaysClose = data.close[0];
         let firstdaysHigh = data.high[0];
@@ -3283,15 +3282,14 @@ class BearishEngulfingPattern extends CandlestickFinder {
         let seconddaysClose = data.close[1];
         let seconddaysHigh = data.high[1];
         let seconddaysLow = data.low[1];
-        let isBearishEngulfing = ((firstdaysClose > firstdaysOpen) &&
-            (firstdaysOpen < seconddaysOpen) &&
-            (firstdaysClose <= seconddaysOpen) &&
-            (firstdaysOpen > seconddaysClose));
+        let isBearishEngulfing = (firstdaysClose > firstdaysOpen) &&
+            (firstdaysOpen > seconddaysClose) &&
+            (!needGap || ((firstdaysOpen < seconddaysOpen) && (firstdaysClose < seconddaysOpen)));
         return (isBearishEngulfing);
     }
 }
-function bearishengulfingpattern(data) {
-    return new BearishEngulfingPattern().hasPattern(data);
+function bearishengulfingpattern(data, needGap) {
+    return new BearishEngulfingPattern().hasPattern(data, needGap);
 }
 
 class BearishHarami extends CandlestickFinder {
