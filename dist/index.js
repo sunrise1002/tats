@@ -3091,7 +3091,8 @@ class BullishInvertedHammerStick extends CandlestickFinder {
         let daysLow = data.low[0];
         let isBullishInvertedHammer = daysClose > daysOpen;
         isBullishInvertedHammer = isBullishInvertedHammer && this.approximateEqual(daysOpen, daysLow);
-        isBullishInvertedHammer = isBullishInvertedHammer && (daysClose - daysOpen) <= 2 * (daysHigh - daysClose);
+        isBullishInvertedHammer = isBullishInvertedHammer && (daysClose - daysOpen) * 2 <= (daysHigh - daysClose);
+        isBullishInvertedHammer = isBullishInvertedHammer && (daysOpen - daysLow) * 3 < (daysHigh - daysClose);
         return isBullishInvertedHammer;
     }
 }
@@ -3134,7 +3135,8 @@ class BearishInvertedHammerStick extends CandlestickFinder {
         let daysLow = data.low[0];
         let isBearishInvertedHammer = daysOpen > daysClose;
         isBearishInvertedHammer = isBearishInvertedHammer && this.approximateEqual(daysClose, daysLow);
-        isBearishInvertedHammer = isBearishInvertedHammer && (daysOpen - daysClose) <= 2 * (daysHigh - daysOpen);
+        isBearishInvertedHammer = isBearishInvertedHammer && (daysOpen - daysClose) * 2 <= (daysHigh - daysOpen);
+        isBearishInvertedHammer = isBearishInvertedHammer && (daysClose - daysLow) * 3 < (daysHigh - daysOpen);
         return isBearishInvertedHammer;
     }
 }
