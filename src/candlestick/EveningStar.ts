@@ -7,7 +7,7 @@ export default class EveningStar extends CandlestickFinder {
         this.name = 'EveningStar';
         this.requiredCount  = 3;
     }
-    logic (data:StockData) {
+    logic (data:StockData, needGap?: boolean) {  
         let firstdaysOpen   = data.open[0];
         let firstdaysClose  = data.close[0];
         let firstdaysHigh   = data.high[0];
@@ -22,20 +22,30 @@ export default class EveningStar extends CandlestickFinder {
         let thirddaysLow    = data.low[2];
          
         let firstdaysMidpoint = ((firstdaysOpen+firstdaysClose)/2);
-        let isFirstBullish    = firstdaysClose > firstdaysOpen;
-        let isSmallBodyExists = ((firstdaysHigh < seconddaysLow)&&
-                                (firstdaysHigh < seconddaysHigh));
-        let isThirdBearish    = thirddaysOpen > thirddaysClose; 
+
+        let isFirstBullish    = firstdaysClose > firstdaysOpen &&
+          (firstdaysOpen - firstdaysClose > 3 * Math.abs(seconddaysOpen - seconddaysClose));
+
+        let isThirdBearish    = thirddaysOpen > thirddaysClose &&
+          (thirddaysOpen - thirddaysClose > 3 * Math.abs(seconddaysOpen - seconddaysClose)) &&
+          (thirddaysOpen < seconddaysOpen) &&
+          (thirddaysOpen < seconddaysClose);
 
         let gapExists         = ((seconddaysHigh > firstdaysHigh) && 
                                 (seconddaysLow > firstdaysHigh) && 
                                 (thirddaysOpen < seconddaysLow) && 
                                 (seconddaysClose > thirddaysOpen));
+
       let doesCloseBelowFirstMidpoint = thirddaysClose < firstdaysMidpoint;
-      return (isFirstBullish && isSmallBodyExists && gapExists && isThirdBearish && doesCloseBelowFirstMidpoint );
+
+      return isFirstBullish &&
+        gapExists &&
+        isThirdBearish &&
+        doesCloseBelowFirstMidpoint &&
+        (!needGap || gapExists);
      }
 }
 
-export function eveningstar(data:StockData) {
-  return new EveningStar().hasPattern(data);
+export function eveningstar(data:StockData, needGap?: boolean) {
+  return new EveningStar().hasPattern(data, needGap);
 }

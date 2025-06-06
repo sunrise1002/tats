@@ -3368,7 +3368,7 @@ class EveningDojiStar extends CandlestickFinder {
         this.name = 'EveningDojiStar';
         this.requiredCount = 3;
     }
-    logic(data) {
+    logic(data, needGap) {
         let firstdaysOpen = data.open[0];
         let firstdaysClose = data.close[0];
         let firstdaysHigh = data.high[0];
@@ -3382,24 +3382,32 @@ class EveningDojiStar extends CandlestickFinder {
         let thirddaysHigh = data.high[2];
         let thirddaysLow = data.low[2];
         let firstdaysMidpoint = ((firstdaysOpen + firstdaysClose) / 2);
-        let isFirstBullish = firstdaysClose > firstdaysOpen;
+        let isFirstBullish = firstdaysClose > firstdaysOpen &&
+            (firstdaysOpen - firstdaysClose > 3 * Math.abs(seconddaysOpen - seconddaysClose));
         let dojiExists = new Doji().hasPattern({
             "open": [seconddaysOpen],
             "close": [seconddaysClose],
             "high": [seconddaysHigh],
             "low": [seconddaysLow]
         });
-        let isThirdBearish = thirddaysOpen > thirddaysClose;
+        let isThirdBearish = thirddaysOpen > thirddaysClose &&
+            (thirddaysOpen - thirddaysClose > 3 * Math.abs(seconddaysOpen - seconddaysClose)) &&
+            (thirddaysOpen < seconddaysOpen) &&
+            (thirddaysOpen < seconddaysClose);
         let gapExists = ((seconddaysHigh > firstdaysHigh) &&
             (seconddaysLow > firstdaysHigh) &&
             (thirddaysOpen < seconddaysLow) &&
             (seconddaysClose > thirddaysOpen));
         let doesCloseBelowFirstMidpoint = thirddaysClose < firstdaysMidpoint;
-        return (isFirstBullish && dojiExists && gapExists && isThirdBearish && doesCloseBelowFirstMidpoint);
+        return isFirstBullish &&
+            dojiExists &&
+            isThirdBearish &&
+            doesCloseBelowFirstMidpoint &&
+            (!needGap || gapExists);
     }
 }
-function eveningdojistar(data) {
-    return new EveningDojiStar().hasPattern(data);
+function eveningdojistar(data, needGap) {
+    return new EveningDojiStar().hasPattern(data, needGap);
 }
 
 class EveningStar extends CandlestickFinder {
@@ -3408,7 +3416,7 @@ class EveningStar extends CandlestickFinder {
         this.name = 'EveningStar';
         this.requiredCount = 3;
     }
-    logic(data) {
+    logic(data, needGap) {
         let firstdaysOpen = data.open[0];
         let firstdaysClose = data.close[0];
         let firstdaysHigh = data.high[0];
@@ -3422,20 +3430,26 @@ class EveningStar extends CandlestickFinder {
         let thirddaysHigh = data.high[2];
         let thirddaysLow = data.low[2];
         let firstdaysMidpoint = ((firstdaysOpen + firstdaysClose) / 2);
-        let isFirstBullish = firstdaysClose > firstdaysOpen;
-        let isSmallBodyExists = ((firstdaysHigh < seconddaysLow) &&
-            (firstdaysHigh < seconddaysHigh));
-        let isThirdBearish = thirddaysOpen > thirddaysClose;
+        let isFirstBullish = firstdaysClose > firstdaysOpen &&
+            (firstdaysOpen - firstdaysClose > 3 * Math.abs(seconddaysOpen - seconddaysClose));
+        let isThirdBearish = thirddaysOpen > thirddaysClose &&
+            (thirddaysOpen - thirddaysClose > 3 * Math.abs(seconddaysOpen - seconddaysClose)) &&
+            (thirddaysOpen < seconddaysOpen) &&
+            (thirddaysOpen < seconddaysClose);
         let gapExists = ((seconddaysHigh > firstdaysHigh) &&
             (seconddaysLow > firstdaysHigh) &&
             (thirddaysOpen < seconddaysLow) &&
             (seconddaysClose > thirddaysOpen));
         let doesCloseBelowFirstMidpoint = thirddaysClose < firstdaysMidpoint;
-        return (isFirstBullish && isSmallBodyExists && gapExists && isThirdBearish && doesCloseBelowFirstMidpoint);
+        return isFirstBullish &&
+            gapExists &&
+            isThirdBearish &&
+            doesCloseBelowFirstMidpoint &&
+            (!needGap || gapExists);
     }
 }
-function eveningstar(data) {
-    return new EveningStar().hasPattern(data);
+function eveningstar(data, needGap) {
+    return new EveningStar().hasPattern(data, needGap);
 }
 
 class BearishMarubozu extends CandlestickFinder {
