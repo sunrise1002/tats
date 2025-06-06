@@ -2764,7 +2764,7 @@ class MorningStar extends CandlestickFinder {
         this.name = 'MorningStar';
         this.requiredCount = 3;
     }
-    logic(data) {
+    logic(data, needGap) {
         let firstdaysOpen = data.open[0];
         let firstdaysClose = data.close[0];
         let firstdaysHigh = data.high[0];
@@ -2778,20 +2778,25 @@ class MorningStar extends CandlestickFinder {
         let thirddaysHigh = data.high[2];
         let thirddaysLow = data.low[2];
         let firstdaysMidpoint = ((firstdaysOpen + firstdaysClose) / 2);
-        let isFirstBearish = firstdaysClose < firstdaysOpen;
-        let isSmallBodyExists = ((firstdaysLow > seconddaysLow) &&
-            (firstdaysLow > seconddaysHigh));
-        let isThirdBullish = thirddaysOpen < thirddaysClose;
+        let isFirstBearish = firstdaysClose < firstdaysOpen &&
+            (firstdaysOpen - firstdaysClose > 3 * Math.abs(seconddaysOpen - seconddaysClose));
+        let isThirdBullish = (thirddaysClose > thirddaysOpen) &&
+            (thirddaysClose - thirddaysOpen > 3 * Math.abs(seconddaysOpen - seconddaysClose)) &&
+            (thirddaysClose > seconddaysOpen) &&
+            (thirddaysClose > seconddaysClose);
         let gapExists = ((seconddaysHigh < firstdaysLow) &&
             (seconddaysLow < firstdaysLow) &&
             (thirddaysOpen > seconddaysHigh) &&
             (seconddaysClose < thirddaysOpen));
         let doesCloseAboveFirstMidpoint = thirddaysClose > firstdaysMidpoint;
-        return (isFirstBearish && isSmallBodyExists && gapExists && isThirdBullish && doesCloseAboveFirstMidpoint);
+        return isFirstBearish &&
+            isThirdBullish &&
+            doesCloseAboveFirstMidpoint &&
+            (!needGap || gapExists);
     }
 }
-function morningstar(data) {
-    return new MorningStar().hasPattern(data);
+function morningstar(data, needGap) {
+    return new MorningStar().hasPattern(data, needGap);
 }
 
 class BullishEngulfingPattern extends CandlestickFinder {

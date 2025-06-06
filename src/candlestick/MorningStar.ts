@@ -7,7 +7,7 @@ export default class MorningStar extends CandlestickFinder {
         this.name = 'MorningStar';
         this.requiredCount  = 3;
     }
-    logic (data:StockData) {
+    logic (data:StockData, needGap?: boolean) {
         let firstdaysOpen   = data.open[0];
         let firstdaysClose  = data.close[0];
         let firstdaysHigh   = data.high[0];
@@ -22,20 +22,29 @@ export default class MorningStar extends CandlestickFinder {
         let thirddaysLow    = data.low[2];
          
         let firstdaysMidpoint = ((firstdaysOpen+firstdaysClose)/2);
-        let isFirstBearish    = firstdaysClose < firstdaysOpen;
-        let isSmallBodyExists = ((firstdaysLow > seconddaysLow)&&
-                                (firstdaysLow > seconddaysHigh));
-        let isThirdBullish    = thirddaysOpen < thirddaysClose; 
+
+        let isFirstBearish    = firstdaysClose < firstdaysOpen &&
+          (firstdaysOpen - firstdaysClose > 3 * Math.abs(seconddaysOpen - seconddaysClose));
+
+        let isThirdBullish    = (thirddaysClose > thirddaysOpen) &&
+          (thirddaysClose - thirddaysOpen > 3 * Math.abs(seconddaysOpen - seconddaysClose)) &&
+          (thirddaysClose > seconddaysOpen) &&
+          (thirddaysClose > seconddaysClose);
 
         let gapExists         = ((seconddaysHigh < firstdaysLow) && 
                                 (seconddaysLow < firstdaysLow) && 
                                 (thirddaysOpen > seconddaysHigh) && 
                                 (seconddaysClose < thirddaysOpen));
+
       let doesCloseAboveFirstMidpoint = thirddaysClose > firstdaysMidpoint;
-      return (isFirstBearish && isSmallBodyExists && gapExists && isThirdBullish && doesCloseAboveFirstMidpoint );
+
+      return isFirstBearish &&
+        isThirdBullish &&
+        doesCloseAboveFirstMidpoint &&
+        (!needGap || gapExists);
      }
 }
 
-export function morningstar(data:StockData) {
-  return new MorningStar().hasPattern(data);
+export function morningstar(data:StockData, needGap?: boolean) {
+  return new MorningStar().hasPattern(data, needGap);
 }
