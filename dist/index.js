@@ -3039,7 +3039,7 @@ class ThreeWhiteSoldiers extends CandlestickFinder {
         this.name = 'ThreeWhiteSoldiers';
         this.requiredCount = 3;
     }
-    logic(data) {
+    logic(data, needGap) {
         let firstdaysOpen = data.open[0];
         let firstdaysClose = data.close[0];
         let firstdaysHigh = data.high[0];
@@ -3061,11 +3061,11 @@ class ThreeWhiteSoldiers extends CandlestickFinder {
             seconddaysOpen < firstdaysHigh &&
             seconddaysHigh > thirddaysOpen &&
             thirddaysOpen < seconddaysClose;
-        return (isUpTrend && isAllBullish && doesOpenWithinPreviousBody);
+        return (isUpTrend && isAllBullish && (!needGap || doesOpenWithinPreviousBody));
     }
 }
-function threewhitesoldiers(data) {
-    return new ThreeWhiteSoldiers().hasPattern(data);
+function threewhitesoldiers(data, needGap) {
+    return new ThreeWhiteSoldiers().hasPattern(data, needGap);
 }
 
 class BullishHammerStick extends CandlestickFinder {
@@ -3480,7 +3480,7 @@ class ThreeBlackCrows extends CandlestickFinder {
         this.name = 'ThreeBlackCrows';
         this.requiredCount = 3;
     }
-    logic(data) {
+    logic(data, needGap) {
         let firstdaysOpen = data.open[0];
         let firstdaysClose = data.close[0];
         let firstdaysHigh = data.high[0];
@@ -3502,11 +3502,11 @@ class ThreeBlackCrows extends CandlestickFinder {
             seconddaysOpen > firstdaysClose &&
             seconddaysOpen > thirddaysOpen &&
             thirddaysOpen > seconddaysClose;
-        return (isDownTrend && isAllBearish && doesOpenWithinPreviousBody);
+        return (isDownTrend && isAllBearish && (!needGap || doesOpenWithinPreviousBody));
     }
 }
-function threeblackcrows(data) {
-    return new ThreeBlackCrows().hasPattern(data);
+function threeblackcrows(data, needGap) {
+    return new ThreeBlackCrows().hasPattern(data, needGap);
 }
 
 class HangingMan extends CandlestickFinder {
@@ -3599,6 +3599,7 @@ class ShootingStar extends CandlestickFinder {
         let isPattern = this.upwardTrend(data);
         isPattern = isPattern && this.includesHammer(data);
         isPattern = isPattern && this.hasConfirmation(data);
+        isPattern = isPattern && this.hammerShouldHasHighestOpenOrClose(data); // Hammer candlestick should has highest open or close price compare to previous candlesticks
         return isPattern;
     }
     upwardTrend(data, confirm = true) {
@@ -3621,6 +3622,14 @@ class ShootingStar extends CandlestickFinder {
         let isPattern = bearishinvertedhammerstick(possibleHammerData);
         isPattern = isPattern || bullishinvertedhammerstick(possibleHammerData);
         return isPattern;
+    }
+    hammerShouldHasHighestOpenOrClose(data) {
+        const dataLength = data.open.length;
+        const openPrices = data.open.slice(0, dataLength - 1); // Except the last candlestick
+        const closePrices = data.close.slice(0, dataLength - 1); // Except the last candlestick
+        const hammerOpenPrice = openPrices[openPrices.length - 1];
+        const hammerClosePrice = closePrices[closePrices.length - 1];
+        return [hammerOpenPrice, hammerClosePrice].includes(Math.max(...openPrices, ...closePrices));
     }
     hasConfirmation(data) {
         let possibleHammer = {

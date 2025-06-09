@@ -5,6 +5,7 @@ export default class ShootingStar extends CandlestickFinder {
     logic(data: StockData): boolean;
     upwardTrend(data: StockData, confirm?: boolean): boolean;
     includesHammer(data: StockData, confirm?: boolean): any;
+    hammerShouldHasHighestOpenOrClose(data: any): boolean;
     hasConfirmation(data: StockData): boolean;
 }
 export declare function shootingstar(data: StockData): any;
