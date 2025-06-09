@@ -7,7 +7,7 @@ export default class ThreeBlackCrows extends CandlestickFinder {
         this.name = 'ThreeBlackCrows';
         this.requiredCount  = 3;
     }
-    logic (data:StockData) {
+    logic (data:StockData, needGap?: boolean) {
         let firstdaysOpen   = data.open[0];
         let firstdaysClose  = data.close[0];
         let firstdaysHigh   = data.high[0];
@@ -32,10 +32,10 @@ export default class ThreeBlackCrows extends CandlestickFinder {
                                         seconddaysOpen > thirddaysOpen  &&
                                         thirddaysOpen > seconddaysClose;
       
-      return (isDownTrend && isAllBearish && doesOpenWithinPreviousBody);
+      return (isDownTrend && isAllBearish && (!needGap || doesOpenWithinPreviousBody));
      }
 }
 
-export function threeblackcrows(data:StockData) {
-  return new ThreeBlackCrows().hasPattern(data);
+export function threeblackcrows(data:StockData, needGap?: boolean) {
+  return new ThreeBlackCrows().hasPattern(data, needGap);
 }

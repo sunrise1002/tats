@@ -7,7 +7,7 @@ export default class ThreeWhiteSoldiers extends CandlestickFinder {
         this.name = 'ThreeWhiteSoldiers';
         this.requiredCount  = 3;
     }
-    logic (data:StockData) {
+    logic (data:StockData, needGap?: boolean) {
         let firstdaysOpen   = data.open[0];
         let firstdaysClose  = data.close[0];
         let firstdaysHigh   = data.high[0];
@@ -32,10 +32,10 @@ export default class ThreeWhiteSoldiers extends CandlestickFinder {
                                         seconddaysHigh > thirddaysOpen  &&
                                         thirddaysOpen < seconddaysClose;
       
-      return (isUpTrend && isAllBullish && doesOpenWithinPreviousBody);
+      return (isUpTrend && isAllBullish && (!needGap || doesOpenWithinPreviousBody));
      }
 }
 
-export function threewhitesoldiers(data:StockData) {
-  return new ThreeWhiteSoldiers().hasPattern(data);
+export function threewhitesoldiers(data:StockData, needGap?: boolean) {
+  return new ThreeWhiteSoldiers().hasPattern(data, needGap);
 }
