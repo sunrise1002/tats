@@ -242,6 +242,15 @@ class FixedSizeLinkedList extends LinkedList {
     }
 }
 
+class StockData {
+    constructor(open, high, low, close, reversedInput) {
+        this.open = open;
+        this.high = high;
+        this.low = low;
+        this.close = close;
+        this.reversedInput = reversedInput;
+    }
+}
 class CandleData {
 }
 class CandleList {
@@ -4372,6 +4381,7 @@ let AvailableIndicators = getAvailableIndicators();
 exports.getAvailableIndicators = getAvailableIndicators;
 exports.AvailableIndicators = AvailableIndicators;
 exports.FixedSizeLinkedList = FixedSizeLinkedList;
+exports.StockData = StockData;
 exports.CandleData = CandleData;
 exports.CandleList = CandleList;
 exports.sma = sma;
